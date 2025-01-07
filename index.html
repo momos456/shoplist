@@ -315,12 +315,6 @@
                 <div class="search-input-wrapper">
                     <input type="text" class="search-bar" placeholder="Search Amazon Fresh">
                 </div>
-                <span class="search-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#007600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </span>
             </div>
             <div class="autocomplete"></div>
         </div>
@@ -341,77 +335,169 @@
         let selectedItems = new Set();
         let lastPillHighlighted = false;
 
-        const mockAmazonFreshData = {
-            "apple": [
-                { name: "Royal Gala Apples", price: "₹189", image: "https://m.media-amazon.com/images/I/71PcGdaxeiL._AC_UL320_.jpg" },
-                { name: "Granny Smith Apples", price: "₹219", image: "https://m.media-amazon.com/images/I/71EPYjSlBCL._AC_UL320_.jpg" },
-                { name: "Red Delicious Apples", price: "₹159", image: "https://m.media-amazon.com/images/I/71BCKkw1-ML._AC_UL320_.jpg" },
-                { name: "Fuji Apples", price: "₹199", image: "https://m.media-amazon.com/images/I/71K9CbNZPgL._AC_UL320_.jpg" },
-                { name: "Pink Lady Apples", price: "₹239", image: "https://m.media-amazon.com/images/I/71eHU-iUK3L._AC_UL320_.jpg" }
-            ],
-            "banana": [
-                { name: "Robusta Bananas", price: "₹49", image: "https://m.media-amazon.com/images/I/61mT+3V9+dL._AC_UL320_.jpg" },
-                { name: "Organic Bananas", price: "₹69", image: "https://m.media-amazon.com/images/I/71XT6ius9FL._AC_UL320_.jpg" },
-                { name: "Red Bananas", price: "₹79", image: "https://m.media-amazon.com/images/I/61xpF5ys3WL._AC_UL320_.jpg" },
-                { name: "Elakki Bananas", price: "₹59", image: "https://m.media-amazon.com/images/I/61YFMmFVENL._AC_UL320_.jpg" },
-                { name: "Green Bananas", price: "₹39", image: "https://m.media-amazon.com/images/I/71IasRUFsUL._AC_UL320_.jpg" }
-            ],
-            "atta": [
-                { name: "********** Atta", price: "₹325", image: "https://m.media-amazon.com/images/I/81VV1oNvvoL._AC_UL320_.jpg" },
-                { name: "Fortune Chakki Fresh Atta", price: "₹305", image: "https://m.media-amazon.com/images/I/61xn1nm231L._AC_UL320_.jpg" },
-                { name: "Pillsbury Chakki Fresh Atta", price: "₹315", image: "https://m.media-amazon.com/images/I/61ZiafrpToL._AC_UL320_.jpg" },
-                { name: "Nature Fresh Sampoorna Atta", price: "₹295", image: "https://m.media-amazon.com/images/I/71vZ+S7AvbL._AC_UL320_.jpg" },
-                { name: "Organic Tattva Wheat Atta", price: "₹355", image: "https://m.media-amazon.com/images/I/61BrRBcxkAL._AC_UL320_.jpg" }
-            ],
-            "dal": [
-                { name: "Tata Sampann Toor Dal", price: "₹159", image: "https://m.media-amazon.com/images/I/71UD0wC9t3L._AC_UL320_.jpg" },
-                { name: "Fortune Masoor Dal", price: "₹129", image: "https://m.media-amazon.com/images/I/61jmeQau6QL._AC_UL320_.jpg" },
-                { name: "24 Mantra Organic Chana Dal", price: "₹149", image: "https://m.media-amazon.com/images/I/61ufc1AnTRL._AC_UL320_.jpg" },
-                { name: "Rajdhani Moong Dal", price: "₹139", image: "https://m.media-amazon.com/images/I/61YzcjuigML._AC_UL320_.jpg" },
-                { name: "Aashirvaad Urad Dal", price: "₹169", image: "https://m.media-amazon.com/images/I/61DiMW-pFSL._AC_UL320_.jpg" }
-            ],
-            "rice": [
-                { name: "India Gate Basmati Rice", price: "₹399", image: "https://m.media-amazon.com/images/I/71KxFnvRvYL._AC_UL320_.jpg" },
-                { name: "Fortune Rozana Basmati Rice", price: "₹349", image: "https://m.media-amazon.com/images/I/61N0aaA+qUL._AC_UL320_.jpg" },
-                { name: "Daawat Brown Rice", price: "₹289", image: "https://m.media-amazon.com/images/I/61UvXZh9NmL._AC_UL320_.jpg" },
-                { name: "Organic Tattva Sona Masoori Rice", price: "₹319", image: "https://m.media-amazon.com/images/I/61-pBzVQgoL._AC_UL320_.jpg" },
-                { name: "Kohinoor Super Silver Basmati Rice", price: "₹429", image: "https://m.media-amazon.com/images/I/61A9xYfzqOL._AC_UL320_.jpg" }
-            ],
-            "oil": [
-                { name: "Fortune Sunflower Oil", price: "₹199", image: "https://m.media-amazon.com/images/I/61uNgBFlXDL._AC_UL320_.jpg" },
-                { name: "Saffola Gold Refined Oil", price: "₹219", image: "https://m.media-amazon.com/images/I/61XcRCrDwrL._AC_UL320_.jpg" },
-                { name: "Borges Extra Virgin Olive Oil", price: "₹649", image: "https://m.media-amazon.com/images/I/61CMtK0YoML._AC_UL320_.jpg" },
-                { name: "Dhara Mustard Oil", price: "₹179", image: "https://m.media-amazon.com/images/I/61Dg6KLUmyL._AC_UL320_.jpg" },
-                { name: "Organic Tattva Coconut Oil", price: "₹399", image: "https://m.media-amazon.com/images/I/61+q1s6blBL._AC_UL320_.jpg" }
-            ],
-            "ghee": [
-                { name: "Amul Pure Ghee", price: "₹525", image: "https://m.media-amazon.com/images/I/61yZtnlgFNL._AC_UL320_.jpg" },
-                { name: "Gowardhan Pure Cow Ghee", price: "₹599", image: "https://m.media-amazon.com/images/I/61guVY-isCL._AC_UL320_.jpg" },
-                { name: "Mother Dairy Ghee", price: "₹510", image: "https://m.media-amazon.com/images/I/61sEgI3BIXL._AC_UL320_.jpg" },
-                { name: "Organic India Desi Ghee", price: "₹699", image: "https://m.media-amazon.com/images/I/610B9wbOIWL._AC_UL320_.jpg" },
-                { name: "Patanjali Cow's Ghee", price: "₹545", image: "https://m.media-amazon.com/images/I/61JYwTf4DcL._AC_UL320_.jpg" }
-            ]
-        };
+        const mockAmazonFreshData = new Map([
+  [["banana", "bananas", "ripe bananas", "banana dozen", "banana raw", "banana ripe", "banana 500g", "banana 1 kg"], [
+    { name: "Robusta Bananas", price: "₹49", image: "https://m.media-amazon.com/images/I/61mT+3V9+dL._AC_UL320_.jpg" },
+    { name: "Organic Bananas", price: "₹69", image: "https://m.media-amazon.com/images/I/71XT6ius9FL._AC_UL320_.jpg" },
+    { name: "Red Bananas", price: "₹79", image: "https://m.media-amazon.com/images/I/61xpF5ys3WL._AC_UL320_.jpg" },
+    { name: "Elakki Bananas", price: "₹59", image: "https://m.media-amazon.com/images/I/61YFMmFVENL._AC_UL320_.jpg" },
+    { name: "Green Bananas", price: "₹39", image: "https://m.media-amazon.com/images/I/71IasRUFsUL._AC_UL320_.jpg" }
+  ]],
 
-        const keywords = Object.keys(mockAmazonFreshData);
+[["oil", "oil refined", "oil pure", "oil virgin", "oil organic"], [
+    { name: "Fortune Sunflower Oil", price: "₹199", image: "https://m.media-amazon.com/images/I/61uNgBFlXDL._AC_UL320_.jpg" },
+    { name: "Saffola Gold Refined Oil", price: "₹219", image: "https://m.media-amazon.com/images/I/61XcRCrDwrL._AC_UL320_.jpg" },
+    { name: "Borges Extra Virgin Olive Oil", price: "₹649", image: "https://m.media-amazon.com/images/I/61CMtK0YoML._AC_UL320_.jpg" },
+    { name: "Dhara Mustard Oil", price: "₹179", image: "https://m.media-amazon.com/images/I/61Dg6KLUmyL._AC_UL320_.jpg" },
+    { name: "Organic Tattva Coconut Oil", price: "₹399", image: "https://m.media-amazon.com/images/I/61+q1s6blBL._AC_UL320_.jpg" }
+]],
 
-        searchBar.addEventListener('input', function() {
-            const input = this.value.toLowerCase();
-            autocompleteContainer.innerHTML = '';
+[["ghee", "ghee 500g", "ghee 1kg", "ghee pure", "ghee cow", "ghee desi", "ghee organic", "ghee premium"], [
+    { name: "Amul Pure Ghee", price: "₹525", image: "https://m.media-amazon.com/images/I/61yZtnlgFNL._AC_UL320_.jpg" },
+    { name: "Gowardhan Pure Cow Ghee", price: "₹599", image: "https://m.media-amazon.com/images/I/61guVY-isCL._AC_UL320_.jpg" },
+    { name: "Mother Dairy Ghee", price: "₹510", image: "https://m.media-amazon.com/images/I/61sEgI3BIXL._AC_UL320_.jpg" },
+    { name: "Organic India Desi Ghee", price: "₹699", image: "https://m.media-amazon.com/images/I/610B9wbOIWL._AC_UL320_.jpg" },
+    { name: "Patanjali Cow's Ghee", price: "₹545", image: "https://m.media-amazon.com/images/I/61JYwTf4DcL._AC_UL320_.jpg" }
+]],
 
-            if (input.length > 0) {
-                const matchingKeywords = keywords.filter(keyword => 
-                    keyword.toLowerCase().startsWith(input)
-                );
+[["apple", "apples", "apple royal gala", "apple 2 kg"], [
+    { name: "Royal Gala Apples", price: "₹189", image: "https://m.media-amazon.com/images/I/71PcGdaxeiL._AC_UL320_.jpg" },
+    { name: "Granny Smith Apples", price: "₹219", image: "https://m.media-amazon.com/images/I/71EPYjSlBCL._AC_UL320_.jpg" },
+    { name: "Red Delicious Apples", price: "₹159", image: "https://m.media-amazon.com/images/I/71BCKkw1-ML._AC_UL320_.jpg" },
+    { name: "Fuji Apples", price: "₹199", image: "https://m.media-amazon.com/images/I/71K9CbNZPgL._AC_UL320_.jpg" },
+    { name: "Pink Lady Apples", price: "₹239", image: "https://m.media-amazon.com/images/I/71eHU-iUK3L._AC_UL320_.jpg" }
+  ]],
 
-                matchingKeywords.forEach(keyword => {
-                    const div = document.createElement('div');
-                    div.textContent = keyword;
-                    div.addEventListener('click', () => addPill(keyword));
-                    autocompleteContainer.appendChild(div);
-                });
-            }
+  [["kiwi", "kiwis", "organic kiwi", "kiwi pack", "kiwi 250g", "kiwi 500g", "kiwi green", "kiwi golden"], [
+    { name: "Green Kiwi", price: "₹99", image: "https://m.media-amazon.com/images/I/71BKJQmAFtL.AC_UL320.jpg" },
+    { name: "Gold Kiwi", price: "₹129", image: "https://m.media-amazon.com/images/I/61j+y9-IQDL.AC_UL320.jpg" },
+    { name: "Organic Kiwi", price: "₹119", image: "https://m.media-amazon.com/images/I/91hqGNTtnsL.AC_UL320.jpg" },
+    { name: "Baby Kiwi", price: "₹89", image: "https://m.media-amazon.com/images/I/61FTIcewfvL.AC_UL320.jpg" },
+    { name: "Fuzzy Kiwi", price: "₹109", image: "https://m.media-amazon.com/images/I/61c9rYsRP+L.AC_UL320.jpg" }
+  ]],
+
+  [["atta", "atta 5 kg", "atta 2 kg", "whole wheat atta", "atta chakki fresh", "atta whole wheat", "atta multigrain", "atta organic", "atta premium"], [
+    { name: "Whole Wheat Atta 5 kg", price: "₹199", image: "https://m.media-amazon.com/images/I/81qjjWhKRuL.AC_UL320.jpg" },
+    { name: "Organic Whole Wheat Atta 5 kg", price: "₹249", image: "https://m.media-amazon.com/images/I/71BpGQXjQpL.AC_UL320.jpg" },
+    { name: "Refined Wheat Atta 5 kg", price: "₹179", image: "https://m.media-amazon.com/images/I/71kwKmuBovL.AC_UL320.jpg" },
+    { name: "Multigrain Atta 5 kg", price: "₹259", image: "https://m.media-amazon.com/images/I/71Rtr5PiIGL.AC_UL320.jpg" },
+    { name: "Gluten-Free Atta 5 kg", price: "₹329", image: "https://m.media-amazon.com/images/I/71+ESnKRewL.AC_UL320.jpg" }
+  ]],
+
+  [["tomato", "tomatoes", "cherry tomatoes", "tomato 500g", "tomato 1 kg", "tomato hybrid", "tomato local", "tomato cherry"], [
+    { name: "Vine Ripened Tomatoes", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/81wEr7PFasL.AC_UL320.jpg" },
+    { name: "Cherry Tomatoes", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/71i9GpQ8LCL.AC_UL320.jpg" },
+    { name: "Organic Tomatoes", price: "₹69/kg", image: "https://m.media-amazon.com/images/I/71p-uKdpi7L.AC_UL320.jpg" },
+    { name: "Heirloom Tomatoes", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/71hUhryWtmL.AC_UL320.jpg" },
+    { name: "Green Tomatoes", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/71cLHoR-xyL.AC_UL320.jpg" }
+  ]],
+
+  [["potato", "potatoes", "sweet potatoes", "potato 1 kg", "potato 2 kg", "potato 5 kg", "potato baby", "potato red"], [
+    { name: "Russet Potatoes", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/61whFlhsd+L.AC_UL320.jpg" },
+    { name: "Fingerling Potatoes", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/71UXJH9KQDL.AC_UL320.jpg" },
+    { name: "Purple Potatoes", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/71Q7uVoFOLL.AC_UL320.jpg" },
+    { name: "Sweet Potatoes", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/71Vv9-JyaTL.AC_UL320.jpg" },
+    { name: "Red Potatoes", price: "₹34/kg", image: "https://m.media-amazon.com/images/I/61YlNypnKpL.AC_UL320.jpg" }
+  ]],
+
+  [["onion", "onions", "shallots", "onion 1 kg", "onion 2 kg", "onion 5 kg", "onion red", "onion white"], [
+    { name: "Red Onions", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/71UKPKcMrkL.AC_UL320.jpg" },
+    { name: "White Onions", price: "₹24/kg", image: "https://m.media-amazon.com/images/I/61LIJpApa6L.AC_UL320.jpg" },
+    { name: "Shallots", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/71xeEefp7EL.AC_UL320.jpg" },
+    { name: "Pearl Onions", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/61YvTy9WZ3L.AC_UL320.jpg" },
+    { name: "Spring Onions", price: "₹29/bunch", image: "https://m.media-amazon.com/images/I/71WnbM-gzIL.AC_UL320.jpg" }
+  ]],
+
+  [["milk", "almond milk", "milk organic", "milk cow", "milk buffalo", "milk slim", "milk packet"], [
+    { name: "Whole Milk 1 Liter", price: "₹50", image: "https://m.media-amazon.com/images/I/51iMYcbIH4L.AC_UL320.jpg" },
+    { name: "Skimmed Milk 1 Liter", price: "₹45", image: "https://m.media-amazon.com/images/I/51p+ocG5eqL.AC_UL320.jpg" },
+    { name: "Organic Milk 1 Liter", price: "₹65", image: "https://m.media-amazon.com/images/I/71kCrDDXATL.AC_UL320.jpg" },
+    { name: "Lactose-Free Milk 1 Liter", price: "₹55", image: "https://m.media-amazon.com/images/I/71XWPzyuLSL.AC_UL320.jpg" },
+    { name: "Almond Milk 1 Liter", price: "₹79", image: "https://m.media-amazon.com/images/I/71Mz+CWt7xL.AC_UL320.jpg" }
+  ]],
+
+  [["avocado", "avacado", "hass avocados", "avocado piece", "avocado ripe", "avocado raw", "avocado 500g", "avocado pack"], [
+    { name: "Hass Avocados", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/81+sQucHKLL.AC_UL320.jpg" },
+    { name: "Fuerte Avocados", price: "₹89/kg", image: "https://m.media-amazon.com/images/I/71bEzYYY6DL.AC_UL320.jpg" },
+    { name: "Reed Avocados", price: "₹109/kg", image: "https://m.media-amazon.com/images/I/81Bck7ApfsL.AC_UL320.jpg" },
+    { name: "Bacon Avocados", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/71-U9nrPnEL.AC_UL320.jpg" },
+    { name: "Organic Avocados", price: "₹119/kg", image: "https://m.media-amazon.com/images/I/81rrb6agtLL.AC_UL320.jpg" }
+  ]],
+
+  [["carrot", "carrots", "rainbow carrots", "carrot 500g", "carrot 1 kg", "carrot orange", "carrot baby", "carrot local"], [
+    { name: "Baby Carrots", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/71-5+6ZLmZL.AC_UL320.jpg" },
+    { name: "Rainbow Carrots", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/71InqVwKTYL.AC_UL320.jpg" },
+    { name: "Organic Carrots", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/71yszvOoqLL.AC_UL320.jpg" },
+    { name: "Jumbo Carrots", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/71xoCHC-MsL.AC_UL320.jpg" },
+    { name: "Carrot Tops", price: "₹19/bunch", image: "https://m.media-amazon.com/images/I/61QbqZza7dL.AC_UL320.jpg" }
+  ]],
+
+  [["vegetable", "vegetables", "leafy greens", "vegetables fresh", "vegetables organic", "vegetables seasonal", "vegetables cut", "vegetables daily"], [
+    { name: "Assorted Vegetables", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/71QaBKABR7L.AC_UL320.jpg" },
+    { name: "Organic Vegetable Mix", price: "₹149/kg", image: "https://m.media-amazon.com/images/I/81OR4g2QQIL.AC_UL320.jpg" },
+    { name: "Frozen Vegetable Medley", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/81bhHu7MhgL.AC_UL320.jpg" },
+    { name: "Leafy Greens", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/81xwLuH95pL.AC_UL320.jpg" },
+    { name: "Root Vegetables", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/81Mtaa9HDXL.AC_UL320.jpg" }
+  ]],
+
+  [["fruit", "fruits", "tropical fruit", "fruits fresh", "fruits seasonal", "fruits imported", "fruits basket", "fruits gift pack"], [
+    { name: "Seasonal Fruit Basket", price: "₹299", image: "https://m.media-amazon.com/images/I/81BzBTbQZaL.AC_UL320.jpg" },
+    { name: "Exotic Fruit Mix", price: "₹399", image: "https://m.media-amazon.com/images/I/81h1y8ujEGL.AC_UL320.jpg" },
+    { name: "Organic Fruit Box", price: "₹499", image: "https://m.media-amazon.com/images/I/71K4kE8OrbL.AC_UL320.jpg" },
+    { name: "Tropical Fruit Medley", price: "₹249", image: "https://m.media-amazon.com/images/I/71ba1HPs1XL.AC_UL320.jpg" },
+    { name: "Local Fruit Sampler", price: "₹199", image: "https://m.media-amazon.com/images/I/81KqYeY0GxL.AC_UL320.jpg" }
+  ]],
+
+  [["sugar", "brown sugar", "sugar brown", "sugar white", "sugar crystal", "sugar powder", "sugar cubes"], [
+    { name: "White Sugar 5 kg", price: "₹199", image: "https://m.media-amazon.com/images/I/71yphSWg8EL.AC_UL320.jpg" },
+    { name: "Brown Sugar 5 kg", price: "₹249", image: "https://m.media-amazon.com/images/I/71BOAejHt4L.AC_UL320.jpg" },
+    { name: "Organic Cane Sugar 5 kg", price: "₹299", image: "https://m.media-amazon.com/images/I/71-qNjLQaPL.AC_UL320.jpg" },
+    { name: "Demerara Sugar 5 kg", price: "₹279", image: "https://m.media-amazon.com/images/I/71ynQYAp3bL.AC_UL320.jpg" },
+    { name: "Powdered Sugar 5 kg", price: "₹229", image: "https://m.media-amazon.com/images/I/71bWdLxrdKL.AC_UL320.jpg" }
+  ]],
+[["jaggery", "jaggery cubes", "jaggery cube", "jaggery natural", "jaggery pure", "jaggery desi", "jaggery crystal"], [
+    { name: "Gur Jaggery Block 1 kg", price: "₹99", image: "https://m.media-amazon.com/images/I/71XQT8LacUL.AC_UL320.jpg" },
+    { name: "Organic Jaggery Powder 1 kg", price: "₹149", image: "https://m.media-amazon.com/images/I/71uKPSrAAKL.AC_UL320.jpg" },
+    { name: "Handmade Jaggery Cubes 500g", price: "₹129", image: "https://m.media-amazon.com/images/I/71fKp3edgxL.AC_UL320.jpg" },
+    { name: "Cane Jaggery Sticks 1 kg", price: "₹89", image: "https://m.media-amazon.com/images/I/71VeQYuKy9L.AC_UL320.jpg" },
+    { name: "Jaggery Candy 200g", price: "₹59", image: "https://m.media-amazon.com/images/I/61S6SWmPDnL.AC_UL320.jpg" }
+]]]);
+
+        const keywords = [];
+for (let [keys, _] of mockAmazonFreshData) {
+  keywords.push(...keys);
+}
+        
+const keysToRemove = ["kiwis","fruits","vegetables","carrots"];
+
+// Remove the specified keywords
+for (let i = 0; i < keysToRemove.length; i++) {
+  const index = keywords.indexOf(keysToRemove[i]);
+  if (index !== -1) {
+    keywords.splice(index, 1);
+  }
+}
+
+	searchBar.addEventListener('input', function() {
+    const input = this.value.toLowerCase();
+    autocompleteContainer.innerHTML = '';
+
+    if (input.length > 0) {
+        const matchingKeywords = keywords.filter(keyword => 
+            keyword.toLowerCase().startsWith(input)
+        ).slice(0, 5); // Limit to 5 suggestions
+
+        matchingKeywords.forEach(keyword => {
+            const div = document.createElement('div');
+            div.textContent = keyword;
+             div.addEventListener('click', () => {
+                addPill(keyword);
+                searchBar.focus(); // Add this line to maintain focus
+            });
+            autocompleteContainer.appendChild(div);
         });
+    }
+});
 
         searchBar.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
@@ -512,45 +598,56 @@
             span.addEventListener('keypress', handleEnterKey);
         }
 
-        function addResultsList(keyword) {
-            const resultList = document.createElement('div');
-            resultList.className = 'result-list';
-            resultList.dataset.originalKeyword = keyword;
-            resultList.innerHTML = `
-                <h3 data-keyword="${keyword}" data-original-keyword="${keyword}">${keyword.charAt(0).toUpperCase() + keyword.slice(1)}</h3>
-                <div class="list-controls">
-                    <span class="edit-icon" onclick="editHeading(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
-                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                        </svg>
-                    </span>
-                    <span class="delete-icon" onclick="deleteList('${keyword}', '${keyword}')">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 *********** 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/>
-                        </svg>
-                    </span>
-                </div>
-                <div class="image-scroll">
-                    ${mockAmazonFreshData[keyword] ? 
-                        mockAmazonFreshData[keyword].map((product, index) => `
-                            <div class="product-card" data-keyword="${keyword}" data-index="${index}">
-                                <img src="${product.image}" alt="${product.name}">
-                                <div class="product-title">${product.name}</div>
-                                <div class="product-price">${product.price}</div>
-                                <button class="add-to-cart" onclick="addToCart('${keyword}', ${index})">Add to Cart</button>
-                                <div class="quantity-control" style="display: none;">
-                                    <button onclick="updateQuantity('${keyword}', ${index}, -1)">-</button>
-                                    <span>1</span>
-                                    <button onclick="updateQuantity('${keyword}', ${index}, 1)">+</button>
-                                </div>
-                            </div>
-                        `).join('') : 
-                        '<p class="no-data">No data available for this search term.</p>'
-                    }
-                </div>
-            `;
-            resultsContainer.prepend(resultList);
+function addResultsList(keyword) {
+    const resultList = document.createElement('div');
+    resultList.className = 'result-list';
+    resultList.dataset.originalKeyword = keyword;
+
+    // Find the products for the given keyword
+    let products = null;
+    for (let [keys, value] of mockAmazonFreshData) {
+        if (keys.includes(keyword.toLowerCase())) {
+            products = value;
+            break;
         }
+    }
+
+    resultList.innerHTML = `
+        <h3 data-keyword="${keyword}" data-original-keyword="${keyword}">${keyword.charAt(0).toUpperCase() + keyword.slice(1)}</h3>
+        <div class="list-controls">
+            <span class="edit-icon" onclick="editHeading(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                    <path d="M3 17.25L3 21 6.75 21 17.81 9.94 14.06 6.19 3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
+            </span>
+            <span class="delete-icon" onclick="deleteList('${keyword}', '${keyword}')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/>
+                </svg>
+            </span>
+        </div>
+        <div class="image-scroll">
+            ${products ?
+                products.map((product, index) => `
+                    <div class="product-card" data-keyword="${keyword}" data-index="${index}">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="product-title">${product.name}</div>
+                        <div class="product-price">${product.price}</div>
+                        <button class="add-to-cart" onclick="addToCart('${keyword}', ${index})">Add to Cart</button>
+                        <div class="quantity-control" style="display: none;">
+                            <button onclick="updateQuantity('${keyword}', ${index}, -1)">-</button>
+                            <span>1</span>
+                            <button onclick="updateQuantity('${keyword}', ${index}, 1)">+</button>
+                        </div>
+                    </div>
+                `).join('') :
+                '<p class="no-data">No data available for this search term.</p>'
+            }
+        </div>
+    `;
+
+    resultsContainer.prepend(resultList);
+}
 
 function addToCart(keyword, index) {
             const itemKey = `${keyword}-${index}`;
@@ -642,58 +739,77 @@ function addToCart(keyword, index) {
         }
 
         function updateResultListContent(originalKeyword, newKeyword) {
-            let resultList = document.querySelector(`.result-list[data-original-keyword="${originalKeyword}"]`);
-            
-            if (!resultList) {
-                console.error(`No result list found for keyword: ${originalKeyword}`);
-                return;
-            }
+    let resultList = document.querySelector(`.result-list[data-original-keyword="${originalKeyword}"]`);
+    
+    if (!resultList) {
+        console.error(`No result list found for keyword: ${originalKeyword}`);
+        return;
+    }
 
-            const headingOrTextbox = resultList.querySelector('h3, .heading-edit-textbox');
-            if (headingOrTextbox) {
-                if (headingOrTextbox.tagName === 'H3') {
-                    headingOrTextbox.textContent = newKeyword.charAt(0).toUpperCase() + newKeyword.slice(1);
-                    headingOrTextbox.dataset.keyword = newKeyword;
-                } else {
-                    headingOrTextbox.value = newKeyword.charAt(0).toUpperCase() + newKeyword.slice(1);
-                }
-            }
-
-            const imageScroll = resultList.querySelector('.image-scroll');
-            imageScroll.innerHTML = '';
-
-            if (mockAmazonFreshData[newKeyword.toLowerCase()]) {
-                mockAmazonFreshData[newKeyword.toLowerCase()].forEach((product, index) => {
-                    const productCard = document.createElement('div');
-                    productCard.className = 'product-card';
-                    productCard.dataset.keyword = newKeyword;
-                    productCard.dataset.index = index;
-                    productCard.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}">
-                        <div class="product-title">${product.name}</div>
-                        <div class="product-price">${product.price}</div>
-                        <button class="add-to-cart" onclick="addToCart('${newKeyword}', ${index})">Add to Cart</button>
-                    `;
-                    imageScroll.appendChild(productCard);
-
-                    if (selectedItems.has(`${originalKeyword.toLowerCase()}-${index}`)) {
-                        productCard.classList.add('selected');
-                        selectedItems.delete(`${originalKeyword.toLowerCase()}-${index}`);
-                        selectedItems.add(`${newKeyword.toLowerCase()}-${index}`);
-                    }
-                });
-            } else {
-                imageScroll.innerHTML = '<p class="no-data">No data available for this search term.</p>';
-            }
-
-            const deleteIcon = resultList.querySelector('.delete-icon');
-            deleteIcon.setAttribute('onclick', `deleteList('${originalKeyword}', '${newKeyword.toLowerCase()}')`);
-
-            keywordSet.delete(originalKeyword.toLowerCase());
-            keywordSet.add(newKeyword.toLowerCase());
-
-            updatePill(originalKeyword, newKeyword);
+    const headingOrTextbox = resultList.querySelector('h3, .heading-edit-textbox');
+    if (headingOrTextbox) {
+        if (headingOrTextbox.tagName === 'H3') {
+            headingOrTextbox.textContent = newKeyword.charAt(0).toUpperCase() + newKeyword.slice(1);
+            headingOrTextbox.dataset.keyword = newKeyword;
+        } else {
+            headingOrTextbox.value = newKeyword.charAt(0).toUpperCase() + newKeyword.slice(1);
         }
+    }
+
+    const imageScroll = resultList.querySelector('.image-scroll');
+    imageScroll.innerHTML = '';
+
+    // Find products for the new keyword
+    let products = null;
+    for (let [keys, value] of mockAmazonFreshData) {
+        if (keys.includes(newKeyword.toLowerCase())) {
+            products = value;
+            break;
+        }
+    }
+
+    if (products) {
+        products.forEach((product, index) => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.dataset.keyword = newKeyword;
+            productCard.dataset.index = index;
+            productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-title">${product.name}</div>
+                <div class="product-price">${product.price}</div>
+                <button class="add-to-cart" onclick="addToCart('${newKeyword}', ${index})">Add to Cart</button>
+                <div class="quantity-control" style="display: none;">
+                    <button onclick="updateQuantity('${newKeyword}', ${index}, -1)">-</button>
+                    <span>1</span>
+                    <button onclick="updateQuantity('${newKeyword}', ${index}, 1)">+</button>
+                </div>
+            `;
+            imageScroll.appendChild(productCard);
+
+            if (selectedItems.has(`${originalKeyword.toLowerCase()}-${index}`)) {
+                productCard.classList.add('selected');
+                const addToCartButton = productCard.querySelector('.add-to-cart');
+                const quantityControl = productCard.querySelector('.quantity-control');
+                addToCartButton.style.display = 'none';
+                quantityControl.style.display = 'flex';
+                selectedItems.delete(`${originalKeyword.toLowerCase()}-${index}`);
+                selectedItems.add(`${newKeyword.toLowerCase()}-${index}`);
+            }
+        });
+    } else {
+        imageScroll.innerHTML = '<p class="no-data">No data available for this search term.</p>';
+    }
+
+    const deleteIcon = resultList.querySelector('.delete-icon');
+    deleteIcon.setAttribute('onclick', `deleteList('${originalKeyword}', '${newKeyword.toLowerCase()}')`);
+
+    keywordSet.delete(originalKeyword.toLowerCase());
+    keywordSet.add(newKeyword.toLowerCase());
+
+    updatePill(originalKeyword, newKeyword);
+}
+
 
         function deleteList(originalKeyword, currentKeyword) {
             const resultList = document.querySelector(`.result-list[data-original-keyword="${originalKeyword}"]`);
