@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amazon Fresh India-like Search</title>
     <style>
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    padding-bottom: 70px;
-    background-color: #f8f8f8;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}       
-
-.top-bar {
-    background-color: #2e7d32;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 18px;
-    position: relative;
-    flex-shrink: 0; /* Prevent shrinking */
-}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            padding-bottom: 70px;
+            background-color: #f8f8f8;
+        }
+        .top-bar {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 18px;
+            position: relative;
+        }
         .top-bar img {
             height: 30px;
             vertical-align: middle;
@@ -40,17 +33,13 @@ body {
             font-size: 24px;
             color: white;
         }
-
-.umbrella {
-    padding: 5px;
-    background-color: white;
-    position: sticky;
-    top: 0;
-    z-index: 99;
-    border-bottom: 1px solid #ddd;
-    flex-shrink: 0; /* Prevent shrinking */
-}
-    
+        .umbrella {
+            padding: 5px;
+            background-color: white;
+            position: sticky;
+            z-index: 99;
+            border-bottom: 1px solid #ddd;
+        } 
 .search-label {
     display: block;
     padding-bottom: 5px;
@@ -65,8 +54,6 @@ body {
     margin: 10px auto;
     position: relative;
     padding: 0 10px;
-    width: 100%;
-    box-sizing: border-box;
 }
         .search-bar-container {
             display: flex;
@@ -92,27 +79,16 @@ body {
             gap: 5px;
             align-items: center;
         }
-
-.search-bar {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    font-size: 13px;  /* Minimum 16px to prevent zoom on iOS */
-    padding: 5px;
-    background-color: transparent;
-    min-width: 50px;
-    resize: none;
-    -webkit-appearance: none;  /* Prevent default iOS styling */
-    font-size: 16px !important; /* Force minimum font size */
-    touch-action: manipulation; /* Prevent double-tap zoom */
-}
-
-input, textarea, select {
-    font-size: 16px !important; /* Apply to all input elements */
-    touch-action: manipulation;
-}
-
-       
+        .search-bar {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 5px;
+            background-color: transparent;
+            min-width: 50px;
+font-size: 13px;
+        }
 .search-helper-text {
     display: block;
     padding: 5px 10px;
@@ -185,28 +161,10 @@ input, textarea, select {
 .autocomplete div:hover {
     background-color: #e9ffe9;
 }
- 
-.results-container {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 10px;
-    margin-bottom: 60px; /* Space for bottom bar */
-}       
-
-/* Mobile-friendly scrollbar */
-.results-container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.results-container::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.results-container::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-}
+        .results-container {
+            margin-top: 20px;
+            padding: 0 10px;
+        }
         .result-list {
             margin-bottom: 20px;
             position: relative;
@@ -330,21 +288,19 @@ input, textarea, select {
             font-size: 16px;
             color: #666;
         }
-
-.bottom-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    background: white;
-    border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-    z-index: 1000;
-    box-sizing: border-box;
-}
-
-       .add-to-cart, .proceed-to-cart {
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background: white;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        .add-to-cart, .proceed-to-cart {
             display: block;
             width: calc(100% - 20px);
             margin: 0 auto;
@@ -370,28 +326,6 @@ input, textarea, select {
             border-color: #ffcc00;
         }
 
-/* Small mobile devices */
-@media (max-width: 320px) {
-    .product-card {
-        width: 130px;
-    }
-
-    .search-label {
-        font-size: 13px;
-    }
-
-    .search-helper-text {
-        font-size: 11px;
-    }
-}
-
-/* Fix for iOS Safari 100vh issue */
-@supports (-webkit-touch-callout: none) {
-    body {
-        height: -webkit-fill-available;
-    }
-}
-
         @media (max-width: 600px) {
             .search-container {
                 margin: 10px;
@@ -411,10 +345,6 @@ input, textarea, select {
                 padding: 10px;
                 font-size: 14px;
             }
-.search-label {
-        font-size: 16px;
-        padding-bottom: 5px;
-    }
         }
         @media (max-width: 320px) {
             .bottom-bar {
@@ -427,39 +357,12 @@ input, textarea, select {
             }
         }
 
-@media (max-width: 768px) {
-    body {
-        height: 100vh;
-        /* Fix for iOS Safari */
-        height: -webkit-fill-available;
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .search-label {
+        font-size: 16px;
+        padding-bottom: 5px;
     }
-    
-    .umbrella {
-        position: sticky;
-        top: 0;
-        background: white;
-        z-index: 99;
-    }
-
-    .results-container {
-        height: auto;
-        padding: 10px 5px;
-    }
-}
-
-
-
-
-/* Fix for mobile browsers */
-@supports (-webkit-touch-callout: none) {
-    body {
-        height: -webkit-fill-available;
-    }
-}
-
-/* Prevent pull-to-refresh on mobile */
-body {
-    overscroll-behavior-y: contain;
 }
     </style>
 </head>
@@ -803,8 +706,9 @@ searchBar.placeholder = "Type another item";
 function addResultsList(keyword) {
     const resultList = document.createElement('div');
     resultList.className = 'result-list';
-    resultList.dataset.originalKeyword = keyword.toLowerCase();
+    resultList.dataset.originalKeyword = keyword.toLowerCase(); // Normalize keyword
 
+    // Find the products for the given keyword
     let products = null;
     for (let [keys, value] of mockAmazonFreshData) {
         if (keys.includes(keyword.toLowerCase())) {
@@ -818,12 +722,12 @@ function addResultsList(keyword) {
         <div class="list-controls">
             <span class="edit-icon" onclick="editHeading(this)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
-                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                    <path d="M3 17.25L3 21 6.75 21 17.81 9.94 14.06 6.19 3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
                 </svg>
             </span>
             <span class="delete-icon" onclick="deleteList('${keyword.toLowerCase()}', '${keyword.toLowerCase()}')">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
-                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/>
                 </svg>
             </span>
         </div>
@@ -847,15 +751,8 @@ function addResultsList(keyword) {
         </div>
     `;
 
-    // Append to end instead of prepending
-    resultsContainer.appendChild(resultList);
-
-    // Scroll the new item into view with smooth behavior
-    setTimeout(() => {
-        resultList.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-}f
-
+    resultsContainer.prepend(resultList);
+}
 function addToCart(keyword, index) {
             const itemKey = `${keyword}-${index}`;
             const productCard = document.querySelector(`.product-card[data-keyword="${keyword}"][data-index="${index}"]`);
@@ -1015,13 +912,7 @@ function addToCart(keyword, index) {
     keywordSet.add(newKeyword.toLowerCase());
 
     updatePill(originalKeyword, newKeyword);
-
-    // Add smooth scrolling to the updated result list
-    setTimeout(() => {
-        resultList.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
 }
-
 
 
 function deleteList(originalKeyword, currentKeyword) {
