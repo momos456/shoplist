@@ -178,6 +178,23 @@
             transition: background-color 0.3s;
             background-color: white;
         }
+
+.product-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;  /* Changed from 'cover' to 'contain' */
+    border-radius: 4px;
+    background-color: #fff;  /* Added background color */
+    padding: 5px;  /* Added padding */
+}
+
+/* Optional: Add media query for smaller screens */
+@media (max-width: 600px) {
+    .product-card img {
+        width: 80px;
+        height: 80px;
+    }
+}
         .product-card.selected {
             background-color: #f0f0f0;
             border: 1px solid #000;
@@ -337,131 +354,132 @@
 
         const mockAmazonFreshData = new Map([
   [["banana", "bananas", "ripe bananas", "banana dozen", "banana raw", "banana ripe", "banana 500g", "banana 1 kg"], [
-    { name: "Robusta Bananas", price: "₹49", image: "rice1.jpg" },
-    { name: "Organic Bananas", price: "₹69", image: "https://m.media-amazon.com/images/I/71XT6ius9FL._AC_UL320_.jpg" },
-    { name: "Red Bananas", price: "₹79", image: "https://m.media-amazon.com/images/I/61xpF5ys3WL._AC_UL320_.jpg" },
-    { name: "Elakki Bananas", price: "₹59", image: "https://m.media-amazon.com/images/I/61YFMmFVENL._AC_UL320_.jpg" },
-    { name: "Green Bananas", price: "₹39", image: "https://m.media-amazon.com/images/I/71IasRUFsUL._AC_UL320_.jpg" }
+    { name: "Robusta Bananas", price: "₹49", image: "https://m.media-amazon.com/images/I/61600plHVUL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Bananas", price: "₹69", image: "https://m.media-amazon.com/images/I/71Lurh2nTkL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Red Bananas", price: "₹79", image: "https://m.media-amazon.com/images/I/51lSZp7ZWpL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Elakki Bananas", price: "₹59", image: "https://m.media-amazon.com/images/I/61K7bhNJsgL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Green Bananas", price: "₹39", image: "https://m.media-amazon.com/images/I/51O0oURCSFL._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
 [["oil", "oil refined", "oil pure", "oil virgin", "oil organic"], [
-    { name: "Fortune Sunflower Oil", price: "₹199", image: "https://m.media-amazon.com/images/I/61uNgBFlXDL._AC_UL320_.jpg" },
-    { name: "Saffola Gold Refined Oil", price: "₹219", image: "https://m.media-amazon.com/images/I/61XcRCrDwrL._AC_UL320_.jpg" },
-    { name: "Borges Extra Virgin Olive Oil", price: "₹649", image: "https://m.media-amazon.com/images/I/61CMtK0YoML._AC_UL320_.jpg" },
-    { name: "Dhara Mustard Oil", price: "₹179", image: "https://m.media-amazon.com/images/I/61Dg6KLUmyL._AC_UL320_.jpg" },
-    { name: "Organic Tattva Coconut Oil", price: "₹399", image: "https://m.media-amazon.com/images/I/61+q1s6blBL._AC_UL320_.jpg" }
+    { name: "Fortune Sunflower Oil", price: "₹199", image: "https://m.media-amazon.com/images/I/61dfSP+ccEL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Saffola Gold Refined Oil", price: "₹219", image: "https://m.media-amazon.com/images/I/51uwMpk3teL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Borges Extra Virgin Olive Oil", price: "₹649", image: "https://m.media-amazon.com/images/I/81ILzuTdkbL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Dhara Mustard Oil", price: "₹179", image: "https://m.media-amazon.com/images/I/71AgCOCoKYL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Tattva Coconut Oil", price: "₹399", image: "https://m.media-amazon.com/images/I/71YsDkOR8pL._AC_UL640_FMwebp_QL65_.jpg" }
 ]],
 
 [["ghee", "ghee 500g", "ghee 1kg", "ghee pure", "ghee cow", "ghee desi", "ghee organic", "ghee premium"], [
-    { name: "Amul Pure Ghee", price: "₹525", image: "https://m.media-amazon.com/images/I/61yZtnlgFNL._AC_UL320_.jpg" },
-    { name: "Gowardhan Pure Cow Ghee", price: "₹599", image: "https://m.media-amazon.com/images/I/61guVY-isCL._AC_UL320_.jpg" },
-    { name: "Mother Dairy Ghee", price: "₹510", image: "https://m.media-amazon.com/images/I/61sEgI3BIXL._AC_UL320_.jpg" },
-    { name: "Organic India Desi Ghee", price: "₹699", image: "https://m.media-amazon.com/images/I/610B9wbOIWL._AC_UL320_.jpg" },
-    { name: "Patanjali Cow's Ghee", price: "₹545", image: "https://m.media-amazon.com/images/I/61JYwTf4DcL._AC_UL320_.jpg" }
+    { name: "Amul Pure Ghee", price: "₹525", image: "https://m.media-amazon.com/images/I/81zqSDz8uLL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Gowardhan Pure Cow Ghee", price: "₹599", image: "https://m.media-amazon.com/images/I/512tmdS4djL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Mother Dairy Ghee", price: "₹510", image: "https://m.media-amazon.com/images/I/81jQyyBKiIL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic India Desi Ghee", price: "₹699", image: "https://m.media-amazon.com/images/I/51oyzvIufAL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Patanjali Cow's Ghee", price: "₹545", image: "https://m.media-amazon.com/images/I/614DT5y3VHL._AC_UL640_FMwebp_QL65_.jpg" }
 ]],
 
 [["apple", "apples", "apple royal gala", "apple 2 kg"], [
-    { name: "Royal Gala Apples", price: "₹189", image: "https://m.media-amazon.com/images/I/71PcGdaxeiL._AC_UL320_.jpg" },
-    { name: "Granny Smith Apples", price: "₹219", image: "https://m.media-amazon.com/images/I/71EPYjSlBCL._AC_UL320_.jpg" },
-    { name: "Red Delicious Apples", price: "₹159", image: "https://m.media-amazon.com/images/I/71BCKkw1-ML._AC_UL320_.jpg" },
-    { name: "Fuji Apples", price: "₹199", image: "https://m.media-amazon.com/images/I/71K9CbNZPgL._AC_UL320_.jpg" },
-    { name: "Pink Lady Apples", price: "₹239", image: "https://m.media-amazon.com/images/I/71eHU-iUK3L._AC_UL320_.jpg" }
+    { name: "Royal Gala Apples", price: "₹189", image: "https://m.media-amazon.com/images/I/81AK2aQ8VvL._SL1500_.jpg" },
+    { name: "Granny Smith Apples", price: "₹219", image: "https://m.media-amazon.com/images/I/418r5a8VZ9L._SX300_SY300_QL70_FMwebp_.jpg" },
+    { name: "Red Delicious Apples", price: "₹159", image: "https://m.media-amazon.com/images/I/817n0Ovt5NL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Fuji Apples", price: "₹199", image: "https://m.media-amazon.com/images/I/61pWNin2DgL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Pink Lady Apples", price: "₹239", image: "https://m.media-amazon.com/images/I/81kptILNo7L._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["kiwi", "kiwis", "organic kiwi", "kiwi pack", "kiwi 250g", "kiwi 500g", "kiwi green", "kiwi golden"], [
-    { name: "Green Kiwi", price: "₹99", image: "https://m.media-amazon.com/images/I/71BKJQmAFtL.AC_UL320.jpg" },
-    { name: "Gold Kiwi", price: "₹129", image: "https://m.media-amazon.com/images/I/61j+y9-IQDL.AC_UL320.jpg" },
-    { name: "Organic Kiwi", price: "₹119", image: "https://m.media-amazon.com/images/I/91hqGNTtnsL.AC_UL320.jpg" },
-    { name: "Baby Kiwi", price: "₹89", image: "https://m.media-amazon.com/images/I/61FTIcewfvL.AC_UL320.jpg" },
-    { name: "Fuzzy Kiwi", price: "₹109", image: "https://m.media-amazon.com/images/I/61c9rYsRP+L.AC_UL320.jpg" }
+    { name: "Green Kiwi", price: "₹99", image: "https://m.media-amazon.com/images/I/81gxzW7UHKL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Gold Kiwi", price: "₹129", image: "https://m.media-amazon.com/images/I/81gxzW7UHKL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Kiwi", price: "₹119", image: "https://m.media-amazon.com/images/I/61f6DN9K4tS._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Baby Kiwi", price: "₹89", image: "https://m.media-amazon.com/images/I/81gxzW7UHKL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Fuzzy Kiwi", price: "₹109", image: "https://m.media-amazon.com/images/I/716+he580sL._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["atta", "atta 5 kg", "atta 2 kg", "whole wheat atta", "atta chakki fresh", "atta whole wheat", "atta multigrain", "atta organic", "atta premium"], [
-    { name: "Whole Wheat Atta 5 kg", price: "₹199", image: "https://m.media-amazon.com/images/I/81qjjWhKRuL.AC_UL320.jpg" },
-    { name: "Organic Whole Wheat Atta 5 kg", price: "₹249", image: "https://m.media-amazon.com/images/I/71BpGQXjQpL.AC_UL320.jpg" },
-    { name: "Refined Wheat Atta 5 kg", price: "₹179", image: "https://m.media-amazon.com/images/I/71kwKmuBovL.AC_UL320.jpg" },
-    { name: "Multigrain Atta 5 kg", price: "₹259", image: "https://m.media-amazon.com/images/I/71Rtr5PiIGL.AC_UL320.jpg" },
-    { name: "Gluten-Free Atta 5 kg", price: "₹329", image: "https://m.media-amazon.com/images/I/71+ESnKRewL.AC_UL320.jpg" }
+    { name: "Whole Wheat Atta 5 kg", price: "₹199", image: "https://m.media-amazon.com/images/I/91nBm7ilp9L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Whole Wheat Atta 5 kg", price: "₹249", image: "https://m.media-amazon.com/images/I/71QezObCJdL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Refined Wheat Atta 5 kg", price: "₹179", image: "https://m.media-amazon.com/images/I/91sjEAy2I4L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Multigrain Atta 5 kg", price: "₹259", image: "https://m.media-amazon.com/images/I/81aQAwUXphL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Gluten-Free Atta 5 kg", price: "₹329", image: "https://m.media-amazon.com/images/I/71UWU-eGC-L._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["tomato", "tomatoes", "cherry tomatoes", "tomato 500g", "tomato 1 kg", "tomato hybrid", "tomato local", "tomato cherry"], [
-    { name: "Vine Ripened Tomatoes", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/81wEr7PFasL.AC_UL320.jpg" },
-    { name: "Cherry Tomatoes", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/71i9GpQ8LCL.AC_UL320.jpg" },
-    { name: "Organic Tomatoes", price: "₹69/kg", image: "https://m.media-amazon.com/images/I/71p-uKdpi7L.AC_UL320.jpg" },
-    { name: "Heirloom Tomatoes", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/71hUhryWtmL.AC_UL320.jpg" },
-    { name: "Green Tomatoes", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/71cLHoR-xyL.AC_UL320.jpg" }
+    { name: "Vine Ripened Tomatoes", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/61ZJhcdG7LL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Cherry Tomatoes", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/41av+vz+ppL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Tomatoes", price: "₹69/kg", image: "https://m.media-amazon.com/images/I/61wg6cnu4PL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Heirloom Tomatoes", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/51MZoUXAXCL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Green Tomatoes", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/514LjKkBG-L._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["potato", "potatoes", "sweet potatoes", "potato 1 kg", "potato 2 kg", "potato 5 kg", "potato baby", "potato red"], [
-    { name: "Russet Potatoes", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/61whFlhsd+L.AC_UL320.jpg" },
-    { name: "Fingerling Potatoes", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/71UXJH9KQDL.AC_UL320.jpg" },
-    { name: "Purple Potatoes", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/71Q7uVoFOLL.AC_UL320.jpg" },
-    { name: "Sweet Potatoes", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/71Vv9-JyaTL.AC_UL320.jpg" },
-    { name: "Red Potatoes", price: "₹34/kg", image: "https://m.media-amazon.com/images/I/61YlNypnKpL.AC_UL320.jpg" }
+    { name: "Russet Potatoes", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/41QKCkQ2A5L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Fingerling Potatoes", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/61yXL70-RaL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Purple Potatoes", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/51+OFWOeR8L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Sweet Potatoes", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/51T6ABtzOxL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Red Potatoes", price: "₹34/kg", image: "https://m.media-amazon.com/images/I/51T6ABtzOxL._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["onion", "onions", "shallots", "onion 1 kg", "onion 2 kg", "onion 5 kg", "onion red", "onion white"], [
-    { name: "Red Onions", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/71UKPKcMrkL.AC_UL320.jpg" },
-    { name: "White Onions", price: "₹24/kg", image: "https://m.media-amazon.com/images/I/61LIJpApa6L.AC_UL320.jpg" },
-    { name: "Shallots", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/71xeEefp7EL.AC_UL320.jpg" },
-    { name: "Pearl Onions", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/61YvTy9WZ3L.AC_UL320.jpg" },
-    { name: "Spring Onions", price: "₹29/bunch", image: "https://m.media-amazon.com/images/I/71WnbM-gzIL.AC_UL320.jpg" }
+    { name: "Red Onions", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/51DJ-9xkuQL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "White Onions", price: "₹24/kg", image: "https://m.media-amazon.com/images/I/51avgVGpmUL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Shallots", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/61st1DYMUCL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Pearl Onions", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/51YplMprwxL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Spring Onions", price: "₹29/bunch", image: "https://m.media-amazon.com/images/I/81VrAmNWRVL._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["milk", "almond milk", "milk organic", "milk cow", "milk buffalo", "milk slim", "milk packet"], [
-    { name: "Whole Milk 1 Liter", price: "₹50", image: "https://m.media-amazon.com/images/I/51iMYcbIH4L.AC_UL320.jpg" },
-    { name: "Skimmed Milk 1 Liter", price: "₹45", image: "https://m.media-amazon.com/images/I/51p+ocG5eqL.AC_UL320.jpg" },
-    { name: "Organic Milk 1 Liter", price: "₹65", image: "https://m.media-amazon.com/images/I/71kCrDDXATL.AC_UL320.jpg" },
-    { name: "Lactose-Free Milk 1 Liter", price: "₹55", image: "https://m.media-amazon.com/images/I/71XWPzyuLSL.AC_UL320.jpg" },
-    { name: "Almond Milk 1 Liter", price: "₹79", image: "https://m.media-amazon.com/images/I/71Mz+CWt7xL.AC_UL320.jpg" }
+    { name: "Whole Milk 1 Liter", price: "₹50", image: "https://m.media-amazon.com/images/I/61iBRmvxn-L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Skimmed Milk 1 Liter", price: "₹45", image: "https://m.media-amazon.com/images/I/41GLWprMOyL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Milk 1 Liter", price: "₹65", image: "https://m.media-amazon.com/images/I/71TSXjY7SZL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Lactose-Free Milk 1 Liter", price: "₹55", image: "https://m.media-amazon.com/images/I/51MIJi6ThIL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Almond Milk 1 Liter", price: "₹79", image: "https://m.media-amazon.com/images/I/719IGFnA-LL._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
-  [["avocado", "avacado", "hass avocados", "avocado piece", "avocado ripe", "avocado raw", "avocado 500g", "avocado pack"], [
-    { name: "Hass Avocados", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/81+sQucHKLL.AC_UL320.jpg" },
-    { name: "Fuerte Avocados", price: "₹89/kg", image: "https://m.media-amazon.com/images/I/71bEzYYY6DL.AC_UL320.jpg" },
-    { name: "Reed Avocados", price: "₹109/kg", image: "https://m.media-amazon.com/images/I/81Bck7ApfsL.AC_UL320.jpg" },
-    { name: "Bacon Avocados", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/71-U9nrPnEL.AC_UL320.jpg" },
-    { name: "Organic Avocados", price: "₹119/kg", image: "https://m.media-amazon.com/images/I/81rrb6agtLL.AC_UL320.jpg" }
+  [["avocado", "avacado", "avocado piece", "avocado ripe", "avocado raw", "avocado 500g", "avocado pack"], [
+    { name: "Hass Avocados", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/71cs5TNn-LL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Fuerte Avocados", price: "₹89/kg", image: "https://m.media-amazon.com/images/I/51lwG0dVl4L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Reed Avocados", price: "₹109/kg", image: "https://m.media-amazon.com/images/I/518JE4sAj5L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Bacon Avocados", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/71cs5TNn-LL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Avocados", price: "₹119/kg", image: "https://m.media-amazon.com/images/I/71cs5TNn-LL._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["carrot", "carrots", "rainbow carrots", "carrot 500g", "carrot 1 kg", "carrot orange", "carrot baby", "carrot local"], [
-    { name: "Baby Carrots", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/71-5+6ZLmZL.AC_UL320.jpg" },
-    { name: "Rainbow Carrots", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/71InqVwKTYL.AC_UL320.jpg" },
-    { name: "Organic Carrots", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/71yszvOoqLL.AC_UL320.jpg" },
-    { name: "Jumbo Carrots", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/71xoCHC-MsL.AC_UL320.jpg" },
-    { name: "Carrot Tops", price: "₹19/bunch", image: "https://m.media-amazon.com/images/I/61QbqZza7dL.AC_UL320.jpg" }
+    { name: "Baby Carrots", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/61e7AiNbINL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Rainbow Carrots", price: "₹49/kg", image: "https://m.media-amazon.com/images/I/613sCMxt3tL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Carrots", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/81weI2ULFYL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Jumbo Carrots", price: "₹29/kg", image: "https://m.media-amazon.com/images/I/51uS7a5-2uL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Carrot Tops", price: "₹19/bunch", image: "https://m.media-amazon.com/images/I/614GbhAlVzL._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["vegetable", "vegetables", "leafy greens", "vegetables fresh", "vegetables organic", "vegetables seasonal", "vegetables cut", "vegetables daily"], [
-    { name: "Assorted Vegetables", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/71QaBKABR7L.AC_UL320.jpg" },
-    { name: "Organic Vegetable Mix", price: "₹149/kg", image: "https://m.media-amazon.com/images/I/81OR4g2QQIL.AC_UL320.jpg" },
-    { name: "Frozen Vegetable Medley", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/81bhHu7MhgL.AC_UL320.jpg" },
-    { name: "Leafy Greens", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/81xwLuH95pL.AC_UL320.jpg" },
-    { name: "Root Vegetables", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/81Mtaa9HDXL.AC_UL320.jpg" }
+    { name: "Assorted Vegetables", price: "₹99/kg", image: "https://m.media-amazon.com/images/I/614GbhAlVzL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Vegetable Mix", price: "₹149/kg", image: "https://m.media-amazon.com/images/I/71T7VuoA+XL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Frozen Vegetable Medley", price: "₹79/kg", image: "https://m.media-amazon.com/images/I/51yvxGKCiYL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Leafy Greens", price: "₹59/kg", image: "https://m.media-amazon.com/images/I/81dnQAFzn-L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Root Vegetables", price: "₹39/kg", image: "https://m.media-amazon.com/images/I/61ZJhcdG7LL._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
   [["fruit", "fruits", "tropical fruit", "fruits fresh", "fruits seasonal", "fruits imported", "fruits basket", "fruits gift pack"], [
-    { name: "Seasonal Fruit Basket", price: "₹299", image: "https://m.media-amazon.com/images/I/81BzBTbQZaL.AC_UL320.jpg" },
-    { name: "Exotic Fruit Mix", price: "₹399", image: "https://m.media-amazon.com/images/I/81h1y8ujEGL.AC_UL320.jpg" },
-    { name: "Organic Fruit Box", price: "₹499", image: "https://m.media-amazon.com/images/I/71K4kE8OrbL.AC_UL320.jpg" },
-    { name: "Tropical Fruit Medley", price: "₹249", image: "https://m.media-amazon.com/images/I/71ba1HPs1XL.AC_UL320.jpg" },
-    { name: "Local Fruit Sampler", price: "₹199", image: "https://m.media-amazon.com/images/I/81KqYeY0GxL.AC_UL320.jpg" }
+    { name: "Seasonal Fruit Basket", price: "₹299", image: "https://m.media-amazon.com/images/I/71rkVTlVDdS._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Exotic Fruit Mix", price: "₹399", image: "https://m.media-amazon.com/images/I/41SN44--WKL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Fruit Box", price: "₹499", image: "https://m.media-amazon.com/images/I/61nHWMMpylL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Tropical Fruit Medley", price: "₹249", image: "https://m.media-amazon.com/images/I/51IeQpNbztL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Local Fruit Sampler", price: "₹199", image: "https://m.media-amazon.com/images/I/51-4mzkIq9L._AC_UL640_FMwebp_QL65_.jpg" }
   ]],
 
+[["rice", "rice basmati", "rice brown", "rice 1kg", "rice 5kg", "rice premium", "rice organic", "rice raw"], [
+    { name: "India Gate Basmati Rice", price: "₹399", image: "https://m.media-amazon.com/images/I/71CvU3Mn3HL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Fortune Rozana Basmati Rice", price: "₹349", image: "https://m.media-amazon.com/images/I/61j4tTwm+hL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Daawat Brown Rice", price: "₹289", image: "https://m.media-amazon.com/images/I/71ITugomvFL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Tattva Sona Masoori Rice", price: "₹319", image: "https://m.media-amazon.com/images/I/61GXbTd0zrL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Kohinoor Super Silver Basmati Rice", price: "₹429", image: "https://m.media-amazon.com/images/I/813rEkxOpFL._AC_UL640_FMwebp_QL65_.jpg" }
+]],
+
   [["sugar", "brown sugar", "sugar brown", "sugar white", "sugar crystal", "sugar powder", "sugar cubes"], [
-    { name: "White Sugar 5 kg", price: "₹199", image: "https://m.media-amazon.com/images/I/71yphSWg8EL.AC_UL320.jpg" },
-    { name: "Brown Sugar 5 kg", price: "₹249", image: "https://m.media-amazon.com/images/I/71BOAejHt4L.AC_UL320.jpg" },
-    { name: "Organic Cane Sugar 5 kg", price: "₹299", image: "https://m.media-amazon.com/images/I/71-qNjLQaPL.AC_UL320.jpg" },
-    { name: "Demerara Sugar 5 kg", price: "₹279", image: "https://m.media-amazon.com/images/I/71ynQYAp3bL.AC_UL320.jpg" },
-    { name: "Powdered Sugar 5 kg", price: "₹229", image: "https://m.media-amazon.com/images/I/71bWdLxrdKL.AC_UL320.jpg" }
-  ]],
-[["jaggery", "jaggery cubes", "jaggery cube", "jaggery natural", "jaggery pure", "jaggery desi", "jaggery crystal"], [
-    { name: "Gur Jaggery Block 1 kg", price: "₹99", image: "https://m.media-amazon.com/images/I/71XQT8LacUL.AC_UL320.jpg" },
-    { name: "Organic Jaggery Powder 1 kg", price: "₹149", image: "https://m.media-amazon.com/images/I/71uKPSrAAKL.AC_UL320.jpg" },
-    { name: "Handmade Jaggery Cubes 500g", price: "₹129", image: "https://m.media-amazon.com/images/I/71fKp3edgxL.AC_UL320.jpg" },
-    { name: "Cane Jaggery Sticks 1 kg", price: "₹89", image: "https://m.media-amazon.com/images/I/71VeQYuKy9L.AC_UL320.jpg" },
-    { name: "Jaggery Candy 200g", price: "₹59", image: "https://m.media-amazon.com/images/I/61S6SWmPDnL.AC_UL320.jpg" }
-]]]);
+    { name: "White Sugar 5 kg", price: "₹199", image: "https://m.media-amazon.com/images/I/81rGqBT5-dL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Brown Sugar 5 kg", price: "₹249", image: "https://m.media-amazon.com/images/I/61TXQfWSheL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Organic Cane Sugar 5 kg", price: "₹299", image: "https://m.media-amazon.com/images/I/61GtkUQClGL._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Demerara Sugar 5 kg", price: "₹279", image: "https://m.media-amazon.com/images/I/714SSy4HW8L._AC_UL640_FMwebp_QL65_.jpg" },
+    { name: "Powdered Sugar 5 kg", price: "₹229", image: "https://m.media-amazon.com/images/I/61+Zq4NHMNL._AC_UL640_FMwebp_QL65_.jpg" }
+  ]]]);
 
         const keywords = [];
 for (let [keys, _] of mockAmazonFreshData) {
