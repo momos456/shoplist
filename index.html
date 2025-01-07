@@ -546,26 +546,45 @@ for (let i = 0; i < keysToRemove.length; i++) {
   }
 }
 
-	searchBar.addEventListener('input', function() {
+searchBar.addEventListener('input', function() {
     const input = this.value.toLowerCase();
-    autocompleteContainer.innerHTML = '';
+    
+    // Check if the last two characters are comma + space
+    if (input.endsWith(', ')) {
+        // Get all words that end with comma + space
+        const words = input.split(', ').map(word => word.replace(',', '').trim()).filter(word => word);
+        
+        // Process all complete words (those followed by comma + space)
+        if (words.length > 0) {
+            // Only process the last complete word
+            const lastWord = words[words.length - 1];
+            if (lastWord) {
+                addPill(lastWord);
+                this.value = ''; // Clear the input
+            }
+        }
+        return;
+    }
 
+    // Regular autocomplete functionality
+    autocompleteContainer.innerHTML = '';
     if (input.length > 0) {
         const matchingKeywords = keywords.filter(keyword => 
             keyword.toLowerCase().startsWith(input)
-        ).slice(0, 5); // Limit to 5 suggestions
+        ).slice(0, 5);
 
         matchingKeywords.forEach(keyword => {
             const div = document.createElement('div');
             div.textContent = keyword;
-             div.addEventListener('click', () => {
+            div.addEventListener('click', () => {
                 addPill(keyword);
-                searchBar.focus(); // Add this line to maintain focus
+                searchBar.focus();
             });
             autocompleteContainer.appendChild(div);
         });
     }
 });
+
 
 searchBar.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
@@ -638,7 +657,7 @@ function addPill(text) {
     if(isWordPresent(text)){
         searchBar.value = '';
         autocompleteContainer.innerHTML = '';
-        alert("item already present in the list");
+        alert(text +  " is already present in the list");
         return;
     }  
     const normalizedText = text.toLowerCase(); // Normalize the text
