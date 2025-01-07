@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
     <title>Amazon Fresh India-like Search</title>
     <style>
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,19 +14,20 @@ body {
     box-sizing: border-box;
     padding-bottom: 70px;
     background-color: #f8f8f8;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     display: flex;
     flex-direction: column;
+}       
+
+.top-bar {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 18px;
+    position: relative;
+    flex-shrink: 0; /* Prevent shrinking */
 }
-       
-        .top-bar {
-            background-color: #2e7d32;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 18px;
-            position: relative;
-        }
         .top-bar img {
             height: 30px;
             vertical-align: middle;
@@ -38,6 +40,7 @@ body {
             font-size: 24px;
             color: white;
         }
+
 .umbrella {
     padding: 5px;
     background-color: white;
@@ -45,9 +48,8 @@ body {
     top: 0;
     z-index: 99;
     border-bottom: 1px solid #ddd;
-    width: 100%;
-    box-sizing: border-box;
-} 
+    flex-shrink: 0; /* Prevent shrinking */
+}
     
 .search-label {
     display: block;
@@ -183,15 +185,14 @@ input, textarea, select {
 .autocomplete div:hover {
     background-color: #e9ffe9;
 }
-        
+ 
 .results-container {
-    margin-top: 10px;
-    padding: 0 10px;
     flex: 1;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    padding-bottom: 80px; /* Space for bottom bar */
-}
+    -webkit-overflow-scrolling: touch;
+    padding: 10px;
+    margin-bottom: 60px; /* Space for bottom bar */
+}       
 
 /* Mobile-friendly scrollbar */
 .results-container::-webkit-scrollbar {
@@ -329,7 +330,8 @@ input, textarea, select {
             font-size: 16px;
             color: #666;
         }
-	.bottom-bar {
+
+.bottom-bar {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -368,51 +370,6 @@ input, textarea, select {
             border-color: #ffcc00;
         }
 
-* Mobile-specific adjustments */
-@media (max-width: 768px) {
-    .results-container {
-        margin-top: 5px;
-        padding: 0 5px;
-    }
-
-    .search-container {
-        padding: 0 5px;
-    }
-
-    .search-label {
-        font-size: 14px;
-        padding-bottom: 3px;
-    }
-
-    .search-helper-text {
-        font-size: 12px;
-        padding: 3px 5px;
-    }
-
-    .product-card {
-        width: 140px; /* Slightly smaller on mobile */
-    }
-
-    .product-title {
-        font-size: 12px;
-        height: 36px;
-    }
-
-    /* Ensure bottom bar doesn't cover content */
-    body {
-        padding-bottom: 60px;
-    }
-
-    .bottom-bar {
-        padding: 8px;
-    }
-
-    .proceed-to-cart {
-        font-size: 14px;
-        padding: 10px;
-    }
-}
-
 /* Small mobile devices */
 @media (max-width: 320px) {
     .product-card {
@@ -435,11 +392,6 @@ input, textarea, select {
     }
 }
 
-/* Prevent pull-to-refresh on mobile */
-body {
-    overscroll-behavior-y: contain;
-}
-
         @media (max-width: 600px) {
             .search-container {
                 margin: 10px;
@@ -459,6 +411,10 @@ body {
                 padding: 10px;
                 font-size: 14px;
             }
+.search-label {
+        font-size: 16px;
+        padding-bottom: 5px;
+    }
         }
         @media (max-width: 320px) {
             .bottom-bar {
@@ -471,12 +427,39 @@ body {
             }
         }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .search-label {
-        font-size: 16px;
-        padding-bottom: 5px;
+@media (max-width: 768px) {
+    body {
+        height: 100vh;
+        /* Fix for iOS Safari */
+        height: -webkit-fill-available;
     }
+    
+    .umbrella {
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 99;
+    }
+
+    .results-container {
+        height: auto;
+        padding: 10px 5px;
+    }
+}
+
+
+
+
+/* Fix for mobile browsers */
+@supports (-webkit-touch-callout: none) {
+    body {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Prevent pull-to-refresh on mobile */
+body {
+    overscroll-behavior-y: contain;
 }
     </style>
 </head>
