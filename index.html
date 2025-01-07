@@ -40,12 +40,21 @@
             z-index: 99;
             border-bottom: 1px solid #ddd;
         } 
-        .search-container {
-            max-width: 600px;
-            margin: 10px auto;
-            position: relative;
-            padding: 0 10px;
-        }
+.search-label {
+    display: block;
+    padding-bottom: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+        
+.search-container {
+    max-width: 600px;
+    margin: 10px auto;
+    position: relative;
+    padding: 0 10px;
+}
         .search-bar-container {
             display: flex;
             align-items: center;
@@ -78,7 +87,16 @@
             padding: 5px;
             background-color: transparent;
             min-width: 50px;
+font-size: 13px;
         }
+.search-helper-text {
+    display: block;
+    padding: 5px 10px;
+    margin-top: -8px;
+    color: #666;
+    font-size: 13px;
+    font-style: italic;
+}
         .search-icon {
             flex-shrink: 0;
             color: #007600;
@@ -114,23 +132,26 @@
             padding: 0;
             margin-left: 5px;
         }
-        .autocomplete {
-            position: absolute;
-            border: 1px solid #007600;
-            border-top: none;
-            z-index: 99;
-            top: 100%;
-            left: 10px;
-            right: 10px;
-            background-color: white;
-        }
+        
+.autocomplete {
+    position: absolute;
+    border-top: none;
+    z-index: 999; /* Increased z-index */
+    top: 100%;
+    left: 10px;
+    right: 10px;
+    background-color: white;
+    margin-top: -5px; /* Negative margin to overlap helper text */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
+}
         .autocomplete div {
-            padding: 10px;
-            cursor: pointer;
-        }
-        .autocomplete div:hover {
-            background-color: #e9ffe9;
-        }
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete div:hover {
+    background-color: #e9ffe9;
+}
         .results-container {
             margin-top: 20px;
             padding: 0 10px;
@@ -326,6 +347,14 @@
                 font-size: 12px;
             }
         }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .search-label {
+        font-size: 16px;
+        padding-bottom: 5px;
+    }
+}
     </style>
 </head>
 <body>
@@ -333,17 +362,21 @@
         <img src="https://m.media-amazon.com/images/I/31PgK9rqbzL._SY269_FMpng_.png" alt="Amazon Fresh">
         <div class="cart-icon">🛒</div>
     </div>
+
     <div class="umbrella">
-        <div class="search-container">
-            <div class="search-bar-container">
-                <div class="pill-container"></div>
-                <div class="search-input-wrapper">
-                    <input type="text" class="search-bar" placeholder="Search Amazon Fresh">
-                </div>
+    <div class="search-container">
+        <div class="search-label">Search all items at once</div>
+        <div class="search-bar-container">
+            <div class="pill-container"></div>
+            <div class="search-input-wrapper">
+                <textarea class="search-bar" placeholder="e.g Rice, Atta, Ghee" rows="1"></textarea>
             </div>
-            <div class="autocomplete"></div>
         </div>
+        
+        <div class="autocomplete"></div>
     </div>
+<div class="search-helper-text">Add a comma after each item for better experience</div>
+</div>
     <div class="results-container"></div>
     <div class="bottom-bar">
         <button class="proceed-to-cart">Proceed with 0 items</button>
@@ -613,6 +646,7 @@ function addPill(text) {
     `;
     pillContainer.appendChild(pill);
     searchBar.value = '';
+searchBar.placeholder = "Type another item";
     autocompleteContainer.innerHTML = '';
     addResultsList(normalizedText);
 }
@@ -906,6 +940,10 @@ function deleteList(originalKeyword, currentKeyword) {
 
         keywordSet.delete(normalizedOriginal);
         keywordSet.delete(normalizedCurrent);
+
+if (pillContainer.querySelectorAll('.pill').length === 0) {
+            searchBar.placeholder = "e.g Rice, Atta, Ghee";
+        }
     }
 }
 
