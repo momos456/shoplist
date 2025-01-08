@@ -918,6 +918,8 @@ function addToCart(keyword, index) {
             `;
             imageScroll.appendChild(productCard);
 
+            // Remove this block to prevent maintaining selected state
+            /*
             if (selectedItems.has(`${originalKeyword.toLowerCase()}-${index}`)) {
                 productCard.classList.add('selected');
                 const addToCartButton = productCard.querySelector('.add-to-cart');
@@ -927,6 +929,7 @@ function addToCart(keyword, index) {
                 selectedItems.delete(`${originalKeyword.toLowerCase()}-${index}`);
                 selectedItems.add(`${newKeyword.toLowerCase()}-${index}`);
             }
+            */
         });
     } else {
         imageScroll.innerHTML = '<p class="no-data">No data available for this search term.</p>';
@@ -935,12 +938,21 @@ function addToCart(keyword, index) {
     const deleteIcon = resultList.querySelector('.delete-icon');
     deleteIcon.setAttribute('onclick', `deleteList('${originalKeyword}', '${newKeyword.toLowerCase()}')`);
 
+    // Remove items from selectedItems that match the old keyword
+    selectedItems.forEach(itemKey => {
+        if (itemKey.startsWith(originalKeyword.toLowerCase() + '-')) {
+            selectedItems.delete(itemKey);
+        }
+    });
+
     keywordSet.delete(originalKeyword.toLowerCase());
     keywordSet.add(newKeyword.toLowerCase());
 
     updatePill(originalKeyword, newKeyword);
-}
 
+    // Update item count
+    updateItemCount(0); // This will recalculate based on the current selectedItems
+}
 
 function deleteList(originalKeyword, currentKeyword) {
     // Normalize both keywords to lowercase for comparison
@@ -1022,8 +1034,14 @@ if (pillContainer.querySelectorAll('.pill').length === 0) {
         }
 
         function updateItemCount(change) {
-            itemCount += change;
-            proceedToCartButton.textContent = `Proceed with ${itemCount} item${itemCount !== 1 ? 's' : ''}`;
+if (change === 0) {
+        // Recalculate based on current selectedItems
+        itemCount = selectedItems.size;
+    } else {
+        itemCount += change;
+    }
+    proceedToCartButton.textContent = `Proceed with ${itemCount} item${itemCount !== 1 ? 's' : ''}`;
+          
         }
     </script>
 </body>
